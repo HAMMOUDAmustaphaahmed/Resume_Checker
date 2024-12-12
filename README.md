@@ -2,6 +2,13 @@
 
 An innovative tool that **extracts and analyzes CV data**, matches candidate skills with job descriptions, and retrieves GitHub repositories for an enhanced recruitment experience.
 
+## Demo
+
+You can try out the live demo of the app here:
+
+[Check out the Demo](https://resumechecker-hammouda.streamlit.app/)
+
+
 ## ✨ Features  
 
 ### 🔍 **CV Information Extraction**  
