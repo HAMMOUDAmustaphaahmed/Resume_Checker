@@ -1,68 +1,128 @@
-# 📄 CV Analyzer and Skill Matcher 🚀  
+# 🎯 TalentScan — ATS Intelligent
 
-An innovative tool that **extracts and analyzes CV data**, matches candidate skills with job descriptions, and retrieves GitHub repositories for an enhanced recruitment experience.
-
-## Demo
-
-You can try out the live demo of the app here:
-
-[Check out the Demo](https://resumechecker-hammouda.streamlit.app/)
-
-
-## ✨ Features  
-
-### 🔍 **CV Information Extraction**  
-- Supports **PDF** and **DOCX** file formats.  
-- Extracts:  
-  - 📛 **Candidate Name** using regular expressions.  
-  - 🔗 **GitHub Link** embedded in the CV.  
+> Analyseur de CV intelligent propulsé par l'IA — extraction OCR, matching de compétences et recommandations recruteur.
 
 ---
 
-### 🛠️ **Skill Analysis**  
-- **Compares skills** listed in the candidate's CV with those from the job description.  
-- Calculates a **matching score** based on shared skills.  
-- Displays:  
-  - ✅ **Common Skills** between the CV and job requirements.  
-  - 📝 **All Skills** extracted from the CV.  
+## ✨ Fonctionnalités
+
+- **OCR Vision IA** : Lit les CVs Canva, PDFs imagés, captures d'écran et documents scannés
+- **Analyse sémantique** : Comprend le contexte réel du CV, pas seulement des mots-clés
+- **Score pondéré sur 5 critères** : Compétences techniques, Expérience, Formation, Soft Skills, Adéquation poste
+- **Traitement hybride** : Extraction texte + Vision OCR avec fallback automatique
+- **Rapport complet** : Points forts, lacunes, red flags, recommandations recruteur et décision finale
+- **Export JSON** du rapport d'analyse
 
 ---
 
-### 🧑‍💻 **GitHub Profile Analysis**  
-- Fetches **public repositories** from the candidate's GitHub profile using the **GitHub API**.  
-- Identifies the primary **technologies** (programming languages) for each repository.  
-- Displays results in an **interactive table**.  
+## 📁 Structure du projet
+
+```
+talentscan/
+├── app.py                      ← Application principale Streamlit
+├── requirements.txt            ← Dépendances Python
+├── README.md                   ← Ce fichier
+├── .gitignore                  ← Fichiers exclus de Git
+└── .streamlit/
+    └── secrets.toml            ← Clé API (local uniquement, jamais sur GitHub)
+```
 
 ---
 
-### 🎨 **Streamlit Interactive UI**  
-- Clean, organized, and responsive interface using **Streamlit**.  
-- Key Features:  
-  - 📊 **Circular Matching Score** visualization (Green: High, Orange: Medium, Red: Low).  
-  - 🗂️ **Interactive Tables** displaying repositories and technologies.  
-  - 🖥️ **Well-organized layout** for CV, skills, and GitHub information.
+## 🚀 Installation locale
+
+```bash
+# 1. Cloner le repository
+git clone https://github.com/VOTRE_USER/talentscan.git
+cd talentscan
+
+# 2. Installer les dépendances
+pip install -r requirements.txt
+
+# 3. Configurer la clé API
+# Créez le fichier .streamlit/secrets.toml et ajoutez votre clé API
+
+# 4. Lancer l'application
+streamlit run app.py
+```
 
 ---
 
-## 🚀 **How It Works**  
+## ☁️ Déploiement sur Streamlit Cloud (Gratuit)
 
-1. **Upload the CV** (PDF/DOCX) via the Streamlit interface.  
-2. The system extracts candidate details:  
-   - Name  
-   - GitHub profile link  
-3. **Provide the job description** to extract relevant skills.  
-4. **Skill Matching**:  
-   - The tool compares extracted skills to job requirements and calculates a match score.  
-5. **GitHub Analysis**:  
-   - Fetches repositories and displays technologies in a table.  
+### 1. Mettre le code sur GitHub
+
+```bash
+git init
+git add app.py requirements.txt README.md .gitignore
+git commit -m "Initial commit — TalentScan ATS"
+git branch -M main
+git remote add origin https://github.com/VOTRE_USER/talentscan.git
+git push -u origin main
+```
+
+### 2. Déployer
+
+1. Allez sur **https://share.streamlit.io**
+2. Connectez votre compte GitHub
+3. Cliquez **"New app"**
+4. Sélectionnez votre repository et `app.py`
+5. Cliquez **"Deploy"**
+
+### 3. Configurer la clé API
+
+Dans Streamlit Cloud → **App Settings → Secrets**, ajoutez :
+
+```toml
+API_KEY = "votre_cle_api"
+```
+
+Votre application sera accessible sur `https://votre-app.streamlit.app` 🎉
 
 ---
 
-## 📦 **Installation**  
+## 📄 Formats de CV supportés
 
-1. Clone the repository:  
-   ```bash
-   git clone https://github.com/HAMMOUDAmustaphaahmed/Resume_Checker.git
-   cd your-repository  
-   pip install -r requirements.txt  
-   streamlit run app.py  
+| Format | Support | Mode |
+|--------|---------|------|
+| PDF standard (texte) | ✅ | Extraction directe |
+| PDF Canva / imagé | ✅ | Vision IA |
+| DOCX / DOC | ✅ | Extraction directe |
+| PNG / JPG / WEBP | ✅ | Vision IA |
+
+---
+
+## 🏗️ Architecture technique
+
+```
+Fichier uploadé
+    │
+    ├── PDF texte riche ──────── Extraction PyMuPDF ──────── Analyse IA
+    │
+    ├── PDF imagé / Canva ─────── Conversion en images ────── Vision IA
+    │
+    ├── DOCX ─────────────────── Extraction python-docx ───── Analyse IA
+    │
+    └── Image PNG/JPG ──────────────────────────────────────── Vision IA
+```
+
+---
+
+## 💡 Conseils d'utilisation
+
+- **Description du poste** : Plus elle est détaillée (40+ mots), meilleur est le matching
+- **CVs Canva** : Exportez directement en PDF depuis Canva, la Vision IA s'en charge
+- **Images scannées** : Privilégiez une bonne qualité (300 DPI minimum)
+- **Interprétation du score** : 70%+ → À interviewer · 45–70% → Potentiel · <45% → Non prioritaire
+
+---
+
+## 🔒 Sécurité & Confidentialité
+
+- Aucune donnée stockée — tout est traité en mémoire
+- La clé API est gérée via les Secrets Streamlit, jamais dans le code
+- Le fichier `.gitignore` exclut automatiquement les fichiers sensibles
+
+---
+
+*Développé avec Streamlit · Vision IA · Python*
